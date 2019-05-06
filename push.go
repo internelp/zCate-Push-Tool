@@ -5,9 +5,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
 )
 
 type ZabbixPush struct {
@@ -23,6 +27,8 @@ type ZabbixPush struct {
 
 var zabbixPush ZabbixPush
 
+const zCateServer = "https://www.appgao.com/joke.php"
+
 func init() {
 	flag.StringVar(&zabbixPush.Platform, "platform", "", "iOS or Android (require)")
 	flag.StringVar(&zabbixPush.Token, "token", "", "Your token (require)")
@@ -36,4 +42,24 @@ func init() {
 func main() {
 	data, _ := json.MarshalIndent(zabbixPush, "", "  ")
 	fmt.Println(string(data))
+
+	req, err := http.NewRequest("POST", zCateServer, bytes.NewBuffer(data))
+
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("response Status:", resp.StatusCode)
+	// fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+	if resp.StatusCode == 200 {
+		os.Exit(0)
+	}
+	os.Exit(1)
 }
