@@ -1,6 +1,6 @@
 // push.go
 // By https://www.appgao.com
-// Do not delete this line
+// Do not delete this lines
 
 package main
 
