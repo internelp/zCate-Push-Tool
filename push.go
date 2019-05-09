@@ -25,9 +25,20 @@ type ZabbixPush struct {
 	} `json:"notification"`
 }
 
+// {
+//   "platform": "ios",
+//   "token": "token",
+//   "notification": {
+//     "title": "title",
+//     "subtitle": "subtitle",
+//     "body": "body",
+//     "badge": 1
+//   }
+// }
+
 var zabbixPush ZabbixPush
 
-const zCateServer = "https://www.appgao.com/joke.php"
+const zCateServer = "https://zcate.appgao.com/push"
 
 func init() {
 	flag.StringVar(&zabbixPush.Platform, "platform", "", "iOS or Android (require)")
@@ -41,7 +52,8 @@ func init() {
 
 func main() {
 	data, _ := json.MarshalIndent(zabbixPush, "", "  ")
-	fmt.Println(string(data))
+
+	// fmt.Println(string(data))  // show json string
 
 	req, err := http.NewRequest("POST", zCateServer, bytes.NewBuffer(data))
 
