@@ -10,3 +10,9 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+zCate-Push-Tool.linux32.zip
+zCate-Push-Tool.linux64.zip
+zCate-Push-Tool.mac64
+zCate-Push-Tool.mac64.zip
+zCate-Push-Tool.win32.exe.zip
+zCate-Push-Tool.win64.exe.zip
