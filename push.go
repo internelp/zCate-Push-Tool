@@ -15,7 +15,6 @@ import (
 )
 
 type ZabbixPush struct {
-	Platform     string `json:"platform"`
 	Token        string `json:"token"`
 	Notification struct {
 		Title    string `json:"title"`
@@ -41,7 +40,6 @@ var zabbixPush ZabbixPush
 const zCateServer = "https://zcate.appgao.com/push"
 
 func init() {
-	flag.StringVar(&zabbixPush.Platform, "platform", "", "iOS or Android (require)")
 	flag.StringVar(&zabbixPush.Token, "token", "", "Your token (require)")
 	flag.StringVar(&zabbixPush.Notification.Title, "title", "", "Message title")
 	flag.StringVar(&zabbixPush.Notification.Subtitle, "subtitle", "", "Message subtitle")
